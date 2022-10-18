@@ -1,0 +1,25 @@
+import requests
+
+
+def get_recipes_ideas(ingredient_find):
+    app_id = '87fa9ebd'
+    app_key = '1e7413d94e0136dc9801804b062390b2'
+    url = 'https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(ingredient_find, app_id, app_key)
+    meal_idea = requests.get(url).json()
+
+    return meal_idea['hits']
+
+
+def run():
+    ingredient_find = input('Please enter an ingredient:')
+    result = get_recipes_ideas(ingredient_find)
+
+    for meal_idea in result:
+        recipe = meal_idea['recipe']
+
+        print(recipe['label'])
+        print(recipe['url'])
+        print()
+
+
+run()
